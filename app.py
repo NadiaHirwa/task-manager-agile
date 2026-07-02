@@ -31,3 +31,6 @@ def complete_task(task_id):
         return jsonify({"error": "Task not found"}), 404
 
     return jsonify({"message": "Task marked as complete"}), 200
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
