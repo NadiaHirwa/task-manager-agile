@@ -22,3 +22,12 @@ def create_task():
 def list_tasks():
     tasks = get_all_tasks()
     return jsonify(tasks), 200
+
+@app.route('/tasks/<int:task_id>/complete', methods=['PATCH'])
+def complete_task(task_id):
+    success = mark_complete(task_id)
+
+    if not success:
+        return jsonify({"error": "Task not found"}), 404
+
+    return jsonify({"message": "Task marked as complete"}), 200
