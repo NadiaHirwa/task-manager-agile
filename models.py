@@ -16,7 +16,7 @@ def init_db():
     conn.commit()
     conn.close()
     
-    def add_task(title):
+def add_task(title):
     if not title or not title.strip():
         return None
 
@@ -30,3 +30,19 @@ def init_db():
     new_id = cursor.lastrowid
     conn.close()
     return {"id": new_id, "title": title, "completed": False}
+
+def get_all_tasks():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, completed FROM tasks")
+    rows = cursor.fetchall()
+    conn.close()
+
+    tasks = []
+    for row in rows:
+        tasks.append({
+            "id": row[0],
+            "title": row[1],
+            "completed": bool(row[2])
+        })
+    return tasks
