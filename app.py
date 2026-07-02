@@ -17,3 +17,8 @@ def create_task():
         return jsonify({"error": "Title can't be empty"}), 400
 
     return jsonify(task), 201
+
+@app.route('/tasks', methods=['GET'])
+def list_tasks():
+    tasks = get_all_tasks()
+    return jsonify(tasks), 200
