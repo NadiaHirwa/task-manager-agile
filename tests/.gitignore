@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Database file (created when app runs)
+*.db
+*.sqlite3
+
+# VS Code settings (optional, personal editor config)
+.vscode/
+
+# OS-generated files
+.DS_Store
