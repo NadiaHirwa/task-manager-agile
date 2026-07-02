@@ -46,3 +46,22 @@ def get_all_tasks():
             "completed": bool(row[2])
         })
     return tasks
+
+def mark_complete(task_id):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id FROM tasks WHERE id = ?", (task_id,))
+    existing = cursor.fetchone()
+
+    if existing is None:
+        conn.close()
+        return False
+
+    cursor.execute(
+        "UPDATE tasks SET completed = 1 WHERE id = ?",
+        (task_id,)
+    )
+    conn.commit()
+    conn.close()
+    return True
