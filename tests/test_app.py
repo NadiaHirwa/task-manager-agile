@@ -32,3 +32,21 @@ def test_create_task_missing_title(client):
 
     assert response.status_code == 400
     assert "error" in data
+
+def test_list_tasks_empty(client):
+    response = client.get("/tasks")
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert data == []
+
+
+def test_list_tasks_after_creating_one(client):
+    client.post("/tasks", json={"title": "Walk the dog"})
+    response = client.get("/tasks")
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert len(data) == 1
+    assert data[0]["title"] == "Walk the dog"
+
