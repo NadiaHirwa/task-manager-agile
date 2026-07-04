@@ -50,3 +50,24 @@ def test_list_tasks_after_creating_one(client):
     assert len(data) == 1
     assert data[0]["title"] == "Walk the dog"
 
+def test_mark_complete_success(client):
+    create_response = client.post("/tasks", json={"title": "Read a book"})
+    task_id = create_response.get_json()["id"]
+
+    response = client.patch(f"/tasks/{task_id}/complete")
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert "message" in data
+
+    check_response = client.get("/tasks")
+    check_data = check_response.get_json()
+    assert check_data[0]["completed"] is True
+
+
+def test_mark_complete_not_found(client):
+    response = client.patch("/tasks/999/complete")
+    data = response.get_json()
+
+    assert response.status_code == 404
+    assert "error" in data
