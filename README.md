@@ -50,3 +50,18 @@ A lightweight task manager that helps individuals track daily to-dos: add tasks,
 ## Sprint Plan
 * **Sprint 1:** US1, US2, US3 (7 points) — add → view → complete flow
 * **Sprint 2:** US4, US5 (3 points), plus improvements from Sprint 1 retrospective
+
+## Sprint 2 Plan (Updated)
+
+**Goal:** Complete the remaining backlog (delete + health check) and apply Sprint 1 retrospective improvements.
+
+**Backlog items:**
+- US4 — Delete a task (2 points)
+- US5 — Health check endpoint (1 point)
+
+**Retrospective improvements being applied this sprint:**
+1. Documenting planning before implementation (this section itself is an example of that)
+2. Reviewing `git status` carefully before every `git add`, avoiding blind `git add .`
+3. Upgrading GitHub Actions dependency versions to clear the Node.js deprecation warning
+
+**Definition of Done:** same as Sprint 1 (see above), unchanged.
