@@ -71,3 +71,25 @@ def test_mark_complete_not_found(client):
 
     assert response.status_code == 404
     assert "error" in data
+
+def test_delete_task_success(client):
+    create_response = client.post("/tasks", json={"title": "Temp task"})
+    task_id = create_response.get_json()["id"]
+
+    response = client.delete(f"/tasks/{task_id}")
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert "message" in data
+
+    check_response = client.get("/tasks")
+    check_data = check_response.get_json()
+    assert check_data == []
+
+
+def test_delete_task_not_found(client):
+    response = client.delete("/tasks/999")
+    data = response.get_json()
+
+    assert response.status_code == 404
+    assert "error" in data
