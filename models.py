@@ -65,3 +65,19 @@ def mark_complete(task_id):
     conn.commit()
     conn.close()
     return True
+
+def delete_task(task_id):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id FROM tasks WHERE id = ?", (task_id,))
+    existing = cursor.fetchone()
+
+    if existing is None:
+        conn.close()
+        return False
+
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+    conn.commit()
+    conn.close()
+    return True
