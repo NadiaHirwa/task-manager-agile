@@ -93,3 +93,10 @@ def test_delete_task_not_found(client):
 
     assert response.status_code == 404
     assert "error" in data
+
+def test_health_check(client):
+    response = client.get("/health")
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert data["status"] == "ok"
